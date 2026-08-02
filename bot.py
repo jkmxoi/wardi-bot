@@ -423,16 +423,26 @@ async def daily_reminder():
                     local_now = now.astimezone(tz)
                     rem_time = datetime.strptime(reminder_time, "%H:%M").time()
                     
-                    if local_now.hour == rem_time.hour and now.minute == rem_time.minute:
+                    if local_now.hour == rem_time.hour and local_now.minute == rem_time.minute:
                         channel = bot.get_channel(channel_id)
                         if channel:
                             embed = discord.Embed(
-                                title="🌸 حان وقت ورد اليوم",
-                                description="اجعل لك ورداً من القرآن، ولو صفحة واحدة\n\nاشترك عبر كتابة `/ابدأ`",
-                                color=0xFF69B4
+                                title="🌸 ورد اليوم",
+                                description=(
+                                    "﴿ وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ ﴾\n\n"
+                                    "📖 اجعل لك وردًا من القرآن، ولو صفحة واحدة.\n\n"
+                                    "💌 للاشتراك في الورد اليومي اكتب: `/ابدأ`"
+                                ),
+                                color=0x7FD8FF
                             )
-                            embed.set_footer(text="وردي — رفيقك في الختمة")
-                            await channel.send(embed=embed)
+                            embed.set_footer(
+                                text="وردي | رفيقك اليومي مع القرآن 🤍"
+                            )
+                            await channel.send(
+                                embed=embed,
+                                content="\n@everyone",
+                                allowed_mentions=discord.AllowedMentions(everyone=True)
+                            )
                 except:
                     continue
 
